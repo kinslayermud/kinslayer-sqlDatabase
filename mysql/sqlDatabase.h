@@ -19,7 +19,7 @@ Author: Michael Mason - mikemason930@gmail.com (C) 01-26-2007
 #include <ctime>
 #include <memory>
 #include <cstring>
-#include <boost/optional.hpp>
+#include <optional>
 
 namespace sql
 {
@@ -278,14 +278,14 @@ public:
 		return row[i] == nullptr ? 0 : atoi(row[i]);
 	}
 
-	const boost::optional<int> getNullableInt(const std::string &field ) const
+	const std::optional<int> getNullableInt(const std::string &field ) const
 	{
 		return getNullableInt(getIndexByField(field));
 	}
 
-	const boost::optional<int> getNullableInt( const int i ) const
+	const std::optional<int> getNullableInt( const int i ) const
 	{
-		return row[i] == nullptr ? boost::optional<int>() : getInt(i);
+		return row[i] == nullptr ? std::optional<int>() : getInt(i);
 	}
 
 	const char getChar( const std::string &field ) const
@@ -297,14 +297,14 @@ public:
 		return row[i] == nullptr ? '\0' : (char)(row[i][0]);
 	}
 
-	const boost::optional<char> getNullableChar(const std::string &field ) const
+	const std::optional<char> getNullableChar(const std::string &field ) const
 	{
 		return getNullableChar(getIndexByField(field));
 	}
 
-	const boost::optional<char> getNullableChar( const int i ) const
+	const std::optional<char> getNullableChar( const int i ) const
 	{
-		return row[i] == nullptr ? getChar(i) : boost::optional<char>();
+		return row[i] == nullptr ? getChar(i) : std::optional<char>();
 	}
 
 	const long long getLongLong( const std::string &field ) const
@@ -323,20 +323,20 @@ public:
 		return retval;
 	}
 
-	const boost::optional<long long> getNullableLongLong( const std::string &field ) const
+	const std::optional<long long> getNullableLongLong( const std::string &field ) const
 	{
 		return getNullableLongLong(getIndexByField(field));
 	}
-	const boost::optional<long long> getNullableLongLong( const int i ) const
+	const std::optional<long long> getNullableLongLong( const int i ) const
 	{
 		if(row[i] == NULL)
-			return boost::optional<long long>();
+			return std::optional<long long>();
 		static std::stringstream buffer;
 		static long long retval;
 		buffer.str("");
 		buffer << row[i];
 		buffer >> retval;
-		return boost::optional<long long>(retval);
+		return std::optional<long long>(retval);
 	}
 
 	const std::string getString( const std::string &Field ) const
@@ -348,13 +348,13 @@ public:
 		return row[i];
 	}
 
-	const boost::optional<std::string> getNullableString( const std::string &Field ) const
+	const std::optional<std::string> getNullableString( const std::string &Field ) const
 	{
 		return getNullableString( getIndexByField(Field) );
 	}
-	const boost::optional<std::string> getNullableString( const int i ) const
+	const std::optional<std::string> getNullableString( const int i ) const
 	{
-		return row[i] == nullptr ? boost::optional<std::string>() : boost::optional<std::string>(std::string(row[i]));
+		return row[i] == nullptr ? std::optional<std::string>() : std::optional<std::string>(std::string(row[i]));
 	}
 
 	const float getFloat( const std::string &Field ) const
@@ -369,13 +369,13 @@ public:
 		sscanf(row[i], "%f", &f);
 		return f;
 	}
-	const boost::optional<float> getNullableFloat( const int i ) const
+	const std::optional<float> getNullableFloat( const int i ) const
 	{
 		if(row[i] == NULL)
-			return boost::optional<float>();
-		return boost::optional<float>(getFloat(i));
+			return std::optional<float>();
+		return std::optional<float>(getFloat(i));
 	}
-	const boost::optional<float> getNullableFloat( const std::string &Field ) const
+	const std::optional<float> getNullableFloat( const std::string &Field ) const
 	{
 		return getNullableFloat( getIndexByField(Field) );
 	}
@@ -389,13 +389,13 @@ public:
 		return atof(row[i]);
 	}
 
-	const boost::optional<double> getNullableDouble( const std::string &Field ) const
+	const std::optional<double> getNullableDouble( const std::string &Field ) const
 	{
 		return getNullableDouble( getIndexByField(Field) );
 	}
-	const boost::optional<double> getNullableDouble( const int i ) const
+	const std::optional<double> getNullableDouble( const int i ) const
 	{
-		return row[i] == nullptr ? boost::optional<double>() : boost::optional<double>(getDouble(i));
+		return row[i] == nullptr ? std::optional<double>() : std::optional<double>(getDouble(i));
 	}
 
 	const time_t getTimestamp( const int i ) const
@@ -418,11 +418,11 @@ public:
 		return getTimestamp( getIndexByField(field) );
 	}
 
-	const boost::optional<time_t> getNullableTimestamp( const int i ) const
+	const std::optional<time_t> getNullableTimestamp( const int i ) const
 	{
-		return row[i] == nullptr ? boost::optional<time_t>() : boost::optional<time_t>(getTimestamp(i));
+		return row[i] == nullptr ? std::optional<time_t>() : std::optional<time_t>(getTimestamp(i));
 	}
-	const boost::optional<time_t> getNullableTimestamp( const std::string &field ) const
+	const std::optional<time_t> getNullableTimestamp( const std::string &field ) const
 	{
 		return getNullableTimestamp( getIndexByField(field) );
 	}
