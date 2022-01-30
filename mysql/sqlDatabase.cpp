@@ -479,7 +479,7 @@ void BatchInsertStatement::putChar( char value )
 {
 	char buf[2];
 	sprintf(buf, "%c", value);
-	putString(&value);
+	putString(buf);
 }
 void BatchInsertStatement::putBool( bool value )
 {
