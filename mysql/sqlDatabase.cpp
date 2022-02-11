@@ -505,21 +505,21 @@ std::string escapeQuoteString(const std::string &str)
 	return "'" + escapeString(str) + "'";
 }
 
-std::string encodeQuoteDate(const time_t unix_timestamp)
+std::string encodeQuoteDate(const time_t unixTimestamp)
 {
-	return std::string("'") + encodeDate(unix_timestamp) + std::string("'");
+	return std::string("'") + encodeDate(unixTimestamp) + std::string("'");
 }
 
-std::string encodeDate(const time_t unix_timestamp)
+std::string encodeDate(const time_t unixTimestamp)
 {
 	struct tm *timeInfo;
 	char buffer[32];
 
-	if(unix_timestamp == 0)
+	if(unixTimestamp == 0)
 		return "NULL";
 
-	timeInfo = localtime(&unix_timestamp);
-	strftime(buffer, 32, "%Y-%m-%d %H:%M:%S", timeInfo);
+	timeInfo = localtime(&unixTimestamp);
+	strftime(buffer, 32, "%Y-%m-%d %H:%M:%S.%f", timeInfo);
 
 	return std::string(buffer);
 }
@@ -531,13 +531,13 @@ int encodeBooleanInt(bool boolean)
 
 }//Namespace
 
-void insertLetterBeforeLetter(std::string &str, const char letter_to_find, const char letter_to_lead)
+void insertLetterBeforeLetter(std::string &str, const char letterToFind, const char letterToLead)
 {
 	std::string::size_type pos;
-	for(pos = str.find(letter_to_find, 0);pos != std::string::npos;
-		pos = str.find(letter_to_find, pos + 1))
+	for(pos = str.find(letterToFind, 0);pos != std::string::npos;
+		pos = str.find(letterToFind, pos + 1))
 	{
-		str.insert(pos, 1, letter_to_lead);
+		str.insert(pos, 1, letterToLead);
 		++pos;
 	}
 }
