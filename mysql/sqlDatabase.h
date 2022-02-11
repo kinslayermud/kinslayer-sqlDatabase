@@ -79,7 +79,7 @@ struct QueryException:Exception
 	}
 	virtual void report() { std::cout << "Query exception: " << message << std::endl; }
 	std::string getErrorMessage() { return errorMessage; }
-	const int getErrno() { return err; }
+	int getErrno() { return err; }
 };
 
 struct FieldException:Exception
@@ -189,7 +189,7 @@ public:
 	void reverseRows();
 	void skipRow();
 	bool hasNextRow();
-	const int getIndexByField( const std::string &Field );
+	int getIndexByField( const std::string &Field );
 	Row getRow();
 	Row peekRow();
 	std::string getFieldByIndex( const int index );

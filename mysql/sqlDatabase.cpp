@@ -106,7 +106,7 @@ std::shared_ptr<_Query> _Connection::sendQuery( const std::string &queryBuffer )
 	Query wrappedQuery;
 	try {
 		wrappedQuery = query->send();
-	} catch( QueryException e ) {
+	} catch( QueryException &e ) {
 		throw;
 	}
 
@@ -296,7 +296,7 @@ unsigned int _Query::numFields()
 	return (unsigned int)fields.size();
 }
 //Grab the numerical index for a field.
-const int _Query::getIndexByField( const std::string &field )
+int _Query::getIndexByField( const std::string &field )
 {
 	return fields[ field ];
 }
