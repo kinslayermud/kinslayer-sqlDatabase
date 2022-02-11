@@ -276,7 +276,7 @@ public:
 	}
 	int getInt( const int i ) const
 	{
-		return row[i] == nullptr ? 0 : strtol(row[i]);
+		return row[i] == nullptr ? 0 : strtol(row[i], nullptr, 0);
 	}
 
 	std::optional<int> getNullableInt(const std::string &field ) const
@@ -296,7 +296,7 @@ public:
 	}
 	unsigned int getUnsignedInt( const int i ) const
 	{
-		return row[i] == nullptr ? 0 : strtoul(row[i]);
+		return row[i] == nullptr ? 0 : strtoul(row[i], nullptr, 0);
 	}
 
 	std::optional<unsigned int> getNullableUnsignedInt(const std::string &field ) const
@@ -316,7 +316,7 @@ public:
 	}
 	short getShort( const int i ) const
 	{
-		return row[i] == nullptr ? 0 : (short)strtol(row[i]);
+		return row[i] == nullptr ? 0 : (short)strtol(row[i], nullptr, 0);
 	}
 
 	std::optional<short> getNullableShort(const std::string &field ) const
@@ -336,7 +336,7 @@ public:
 	}
 	unsigned short getUnsignedShort( const int i ) const
 	{
-		return row[i] == nullptr ? 0 : (unsigned short)strtoul(row[i]);
+		return row[i] == nullptr ? 0 : (unsigned short)strtoul(row[i], nullptr, 0);
 	}
 
 	std::optional<unsigned short> getNullableUnsignedShort(const std::string &field ) const
@@ -378,7 +378,7 @@ public:
 	{
 		if(row[i] == NULL)
 			return 0;
-		return strtoll(row[i]);
+		return strtoll(row[i], nullptr, 0);
 	}
 
 	std::optional<long long> getNullableLongLong( const std::string &field ) const
@@ -389,7 +389,7 @@ public:
 	{
 		if(row[i] == NULL)
 			return std::optional<long long>();
-		return std::optional<long long>(strtoll(row[i]));
+		return std::optional<long long>(strtoll(row[i], nullptr, 0));
 	}
 
 	// Unsigned long long retrieval
@@ -401,7 +401,7 @@ public:
 	{
 		if(row[i] == NULL)
 			return 0;
-		return strtoull(row[i]);
+		return strtoull(row[i], nullptr, 0);
 	}
 
 	std::optional<unsigned long long> getNullableUnsignedLongLong( const std::string &field ) const
@@ -412,7 +412,7 @@ public:
 	{
 		if(row[i] == NULL)
 			return std::optional<unsigned long long>();
-		return std::optional<unsigned long long>(strtoull(row[i]));
+		return std::optional<unsigned long long>(strtoull(row[i], nullptr, 0));
 	}
 
 	// String retrieval
