@@ -519,7 +519,7 @@ std::string encodeDate(const time_t unixTimestamp)
 		return "NULL";
 
 	timeInfo = localtime(&unixTimestamp);
-	strftime(buffer, 32, "%Y-%m-%d %H:%M:%S.%f", timeInfo);
+	strftime(buffer, 32, "%Y-%m-%d %H:%M:%S", timeInfo);
 
 	return std::string(buffer);
 }
