@@ -258,7 +258,7 @@ public:
 		int index = query->getIndexByField( fieldName );
 		return (row[ index ] ? row[ index ] : (""));
 	}
-	const int getIndexByField( const std::string &fieldName ) const
+	int getIndexByField( const std::string &fieldName ) const
 	{
 		return query->getIndexByField( fieldName );
 	}
@@ -269,99 +269,177 @@ public:
 		return query->getFieldByIndex( fieldIndex );
 	}
 
-	const int getInt( const std::string &field ) const
+	// Signed int retrieval
+	int getInt( const std::string &field ) const
 	{
 		return getInt( getIndexByField(field) );
 	}
-	const int getInt( const int i ) const
+	int getInt( const int i ) const
 	{
-		return row[i] == nullptr ? 0 : atoi(row[i]);
+		return row[i] == nullptr ? 0 : strtol(row[i]);
 	}
 
-	const std::optional<int> getNullableInt(const std::string &field ) const
+	std::optional<int> getNullableInt(const std::string &field ) const
 	{
 		return getNullableInt(getIndexByField(field));
 	}
 
-	const std::optional<int> getNullableInt( const int i ) const
+	std::optional<int> getNullableInt( const int i ) const
 	{
 		return row[i] == nullptr ? std::optional<int>() : getInt(i);
 	}
 
-	const char getChar( const std::string &field ) const
+	// Unsigned int retrieval
+	unsigned int getUnsignedInt( const std::string &field ) const
+	{
+		return getUnsignedInt( getIndexByField(field) );
+	}
+	unsigned int getUnsignedInt( const int i ) const
+	{
+		return row[i] == nullptr ? 0 : strtoul(row[i]);
+	}
+
+	std::optional<unsigned int> getNullableUnsignedInt(const std::string &field ) const
+	{
+		return getNullableInt(getIndexByField(field));
+	}
+
+	std::optional<unsigned int> getNullableUnsignedInt( const int i ) const
+	{
+		return row[i] == nullptr ? std::optional<unsigned int>() : getUnsignedInt(i);
+	}
+
+	// Signed short retrieval
+	short getShort( const std::string &field ) const
+	{
+		return getShort( getIndexByField(field) );
+	}
+	short getShort( const int i ) const
+	{
+		return row[i] == nullptr ? 0 : (short)strtol(row[i]);
+	}
+
+	std::optional<short> getNullableShort(const std::string &field ) const
+	{
+		return getNullableShort(getIndexByField(field));
+	}
+
+	std::optional<short> getNullableShort( const int i ) const
+	{
+		return row[i] == nullptr ? std::optional<short>() : getShort(i);
+	}
+
+	// Unsigned short retrieval
+	unsigned short getUnsignedShort( const std::string &field ) const
+	{
+		return getUnsignedShort( getIndexByField(field) );
+	}
+	unsigned short getUnsignedShort( const int i ) const
+	{
+		return row[i] == nullptr ? 0 : (unsigned short)strtoul(row[i]);
+	}
+
+	std::optional<unsigned short> getNullableUnsignedShort(const std::string &field ) const
+	{
+		return getNullableUnsignedShort(getIndexByField(field));
+	}
+
+	std::optional<unsigned short> getNullableUnsignedShort( const int i ) const
+	{
+		return row[i] == nullptr ? std::optional<unsigned short>() : getUnsignedShort(i);
+	}
+
+	// Signed char retrieval
+	char getChar( const std::string &field ) const
 	{
 		return getChar(getIndexByField(field));
 	}
-	const char getChar( const int i ) const
+	char getChar( const int i ) const
 	{
 		return row[i] == nullptr ? '\0' : (char)(row[i][0]);
 	}
 
-	const std::optional<char> getNullableChar(const std::string &field ) const
+	std::optional<char> getNullableChar(const std::string &field ) const
 	{
 		return getNullableChar(getIndexByField(field));
 	}
 
-	const std::optional<char> getNullableChar( const int i ) const
+	std::optional<char> getNullableChar( const int i ) const
 	{
 		return row[i] == nullptr ? getChar(i) : std::optional<char>();
 	}
 
-	const long long getLongLong( const std::string &field ) const
+	// Signed long long retrieval
+	long long getLongLong( const std::string &field ) const
 	{
 		return getLongLong(getIndexByField(field));
 	}
-	const long long getLongLong( const int i ) const
+	long long getLongLong( const int i ) const
 	{
 		if(row[i] == NULL)
 			return 0;
-		static std::stringstream buffer;
-		static long long retval;
-		buffer.str("");
-		buffer << row[i];
-		buffer >> retval;
-		return retval;
+		return strtoll(row[i]);
 	}
 
-	const std::optional<long long> getNullableLongLong( const std::string &field ) const
+	std::optional<long long> getNullableLongLong( const std::string &field ) const
 	{
 		return getNullableLongLong(getIndexByField(field));
 	}
-	const std::optional<long long> getNullableLongLong( const int i ) const
+	std::optional<long long> getNullableLongLong( const int i ) const
 	{
 		if(row[i] == NULL)
 			return std::optional<long long>();
-		static std::stringstream buffer;
-		static long long retval;
-		buffer.str("");
-		buffer << row[i];
-		buffer >> retval;
-		return std::optional<long long>(retval);
+		return std::optional<long long>(strtoll(row[i]));
 	}
 
-	const std::string getString( const std::string &Field ) const
+	// Unsigned long long retrieval
+	unsigned long long getUnsignedLongLong( const std::string &field ) const
+	{
+		return getUnsignedLongLong(getIndexByField(field));
+	}
+	unsigned long long getUnsignedLongLong( const int i ) const
+	{
+		if(row[i] == NULL)
+			return 0;
+		return strtoull(row[i]);
+	}
+
+	std::optional<unsigned long long> getNullableUnsignedLongLong( const std::string &field ) const
+	{
+		return getNullableUnsignedLongLong(getIndexByField(field));
+	}
+	std::optional<unsigned long long> getNullableUnsignedLongLong( const int i ) const
+	{
+		if(row[i] == NULL)
+			return std::optional<unsigned long long>();
+		return std::optional<unsigned long long>(strtoull(row[i]));
+	}
+
+	// String retrieval
+	std::string getString( const std::string &Field ) const
 	{
 		return getString( getIndexByField(Field) );
 	}
-	const std::string getString( const int i ) const
+	std::string getString( const int i ) const
 	{
 		return row[i];
 	}
 
-	const std::optional<std::string> getNullableString( const std::string &Field ) const
+	std::optional<std::string> getNullableString( const std::string &Field ) const
 	{
 		return getNullableString( getIndexByField(Field) );
 	}
-	const std::optional<std::string> getNullableString( const int i ) const
+	std::optional<std::string> getNullableString( const int i ) const
 	{
 		return row[i] == nullptr ? std::optional<std::string>() : std::optional<std::string>(std::string(row[i]));
 	}
 
-	const float getFloat( const std::string &Field ) const
+	// Signed float retrieval
+	float getFloat( const std::string &Field ) const
 	{
 		return getFloat( getIndexByField(Field) );
 	}
-	const float getFloat( const int i ) const
+	float getFloat( const int i ) const
 	{
 		if(row[i] == NULL)
 			return 0;
@@ -369,36 +447,38 @@ public:
 		sscanf(row[i], "%f", &f);
 		return f;
 	}
-	const std::optional<float> getNullableFloat( const int i ) const
+	std::optional<float> getNullableFloat( const int i ) const
 	{
 		if(row[i] == NULL)
 			return std::optional<float>();
 		return std::optional<float>(getFloat(i));
 	}
-	const std::optional<float> getNullableFloat( const std::string &Field ) const
+	std::optional<float> getNullableFloat( const std::string &Field ) const
 	{
 		return getNullableFloat( getIndexByField(Field) );
 	}
 
-	const double getDouble( const std::string &Field ) const
+	// Signed double retrieval
+	double getDouble( const std::string &Field ) const
 	{
 		return getDouble( getIndexByField(Field) );
 	}
-	const double getDouble( const int i ) const
+	double getDouble( const int i ) const
 	{
 		return atof(row[i]);
 	}
 
-	const std::optional<double> getNullableDouble( const std::string &Field ) const
+	std::optional<double> getNullableDouble( const std::string &Field ) const
 	{
 		return getNullableDouble( getIndexByField(Field) );
 	}
-	const std::optional<double> getNullableDouble( const int i ) const
+	std::optional<double> getNullableDouble( const int i ) const
 	{
 		return row[i] == nullptr ? std::optional<double>() : std::optional<double>(getDouble(i));
 	}
 
-	const time_t getTimestamp( const int i ) const
+	// Timestamp retrieval
+	time_t getTimestamp( const int i ) const
 	{
 		tm t;
 		memset(&t, 0, sizeof(tm));
@@ -413,16 +493,16 @@ public:
 
 		return mktime(&t);
 	}
-	const time_t getTimestamp( const std::string &field ) const
+	time_t getTimestamp( const std::string &field ) const
 	{
 		return getTimestamp( getIndexByField(field) );
 	}
 
-	const std::optional<time_t> getNullableTimestamp( const int i ) const
+	std::optional<time_t> getNullableTimestamp( const int i ) const
 	{
 		return row[i] == nullptr ? std::optional<time_t>() : std::optional<time_t>(getTimestamp(i));
 	}
-	const std::optional<time_t> getNullableTimestamp( const std::string &field ) const
+	std::optional<time_t> getNullableTimestamp( const std::string &field ) const
 	{
 		return getNullableTimestamp( getIndexByField(field) );
 	}
