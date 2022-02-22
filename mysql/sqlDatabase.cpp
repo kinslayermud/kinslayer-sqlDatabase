@@ -507,7 +507,12 @@ std::string escapeQuoteString(const std::string &str)
 
 std::string encodeQuoteDate(const time_t unixTimestamp)
 {
-	return std::string("'") + encodeDate(unixTimestamp) + std::string("'");
+	std::string encodedTimestamp = encodeDate(unixTimestamp);
+	if(encodedTimestamp == "NULL")
+	{
+		return encodedTimestamp;
+	}
+	return std::string("'") + encodedTimestamp + std::string("'");
 }
 
 std::string encodeDate(const time_t unixTimestamp)
